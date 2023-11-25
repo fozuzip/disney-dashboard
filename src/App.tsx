@@ -1,27 +1,24 @@
-import { useAppSelector, useAppDispatch } from "@/hooks";
-
-import { increment, decrement } from "@/store/slices/counterSlice";
+import { useGetCharactersQuery } from "@/services/disney";
 
 function App() {
-  const count = useAppSelector((state) => state.counter.value);
-  const dispatch = useAppDispatch();
+  const { data, error, isLoading } = useGetCharactersQuery("");
 
-  const handleIncrement = () => {
-    dispatch(increment());
-  };
-
-  const handleDecrement = () => {
-    dispatch(decrement());
-  };
+  console.log(data, error, isLoading);
 
   return (
-    <>
-      <div>
-        <button onClick={handleDecrement}>-</button>
-        <span>{count}</span>
-        <button onClick={handleIncrement}>+</button>
+    <div className="w-screen h-screen bg-background text-foreground">
+      <div className="relative mx-auto w-full max-w-[85rem] px-4 sm:px-6 lg:px-8 py-10">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">
+            Disney Character Explorer
+          </h1>
+          <p className="text-muted-foreground">
+            Discover, Explore, and Analyze the World of Disney Characters in a
+            Dynamic Dashboard
+          </p>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 
