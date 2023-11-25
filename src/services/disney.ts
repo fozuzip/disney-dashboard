@@ -8,7 +8,7 @@ export const disneyApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.disneyapi.dev/" }),
   endpoints: (builder) => ({
     getCharacters: builder.query<DisneyApiResult, string>({
-      query: () => `character`,
+      query: () => `character?page=60&pageSize=50`,
     }),
   }),
 });
