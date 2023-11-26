@@ -25,7 +25,6 @@ export const Filters = () => {
   const [filterType, setFilterType] = useState<FilterColumnType>("name");
 
   const debouncedFilterValue = useDebounce(filterValue, 500);
-  console.log(debouncedFilterValue);
 
   useEffect(() => {
     setFilters([{ value: filterValue, type: filterType }, ...filters.slice(1)]);

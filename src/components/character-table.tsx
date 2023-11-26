@@ -16,6 +16,7 @@ export const CharacterTable = () => {
           key: "imageUrl",
           label: "",
           width: "7%",
+
           render: (value) => (
             <img
               src={value}
@@ -24,11 +25,13 @@ export const CharacterTable = () => {
             />
           ),
         },
-        { key: "name", label: "Name" },
+        { key: "name", label: "Name", sortable: true },
         {
-          key: "tvShows",
+          key: "films",
           label: "# Films",
           width: "10%",
+          sortable: true,
+
           render: (value) => (
             <div className="bg-primary rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
               {value.length}
@@ -39,6 +42,7 @@ export const CharacterTable = () => {
           key: "tvShows",
           label: "# TV Shows",
           width: "10%",
+          sortable: true,
           render: (value) => (
             <div className="bg-secondary rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
               {value.length}
@@ -49,6 +53,7 @@ export const CharacterTable = () => {
           key: "videoGames",
           label: "# Video Games",
           width: "12%",
+          sortable: true,
           render: (value) => (
             <div className="bg-destructive rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
               {value.length}
@@ -62,8 +67,8 @@ export const CharacterTable = () => {
           render: (value) =>
             value.length > 0 ? (
               <div>
-                {value?.map((element) => (
-                  <div>{element}</div>
+                {value?.map((element: string) => (
+                  <div key={element}>{element}</div>
                 ))}
               </div>
             ) : (
@@ -76,11 +81,11 @@ export const CharacterTable = () => {
           key: "enemies",
           label: "Enemies",
           width: "10%",
-          render: (value) => (
+          render: (value) =>
             value.length > 0 ? (
               <div>
-                {value?.map((element) => (
-                  <div>{element}</div>
+                {value?.map((element: string) => (
+                  <div key={element}>{element}</div>
                 ))}
               </div>
             ) : (
@@ -88,7 +93,6 @@ export const CharacterTable = () => {
                 N/A
               </span>
             ),
-          ),
         },
         {
           key: "sourceUrl",
