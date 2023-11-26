@@ -7,19 +7,6 @@ import { Filters } from "@/components/filters";
 function App() {
   const { error, isLoading } = useGetCharactersQuery("");
 
-  if (isLoading) return null;
-  if (error) {
-    return (
-      <div className="w-screen h-screen bg-background text-foreground border-border flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            An unexpected Error occured
-          </h2>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="w-screen h-screen bg-background text-foreground border-border">
       <div className="relative mx-auto w-full max-w-[85rem] px-4 sm:px-6 lg:px-8 py-10">

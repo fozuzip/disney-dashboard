@@ -3,14 +3,16 @@ import { Table } from "./table";
 import { ExternalLink } from "lucide-react";
 
 export const CharacterTable = () => {
-  const { data } = useGetCharactersQuery("");
-  const characters = data?.data;
+  const { data, isLoading, error } = useGetCharactersQuery("");
+  const characters = data?.data || [];
 
   return (
     <Table
       data={characters}
       uniqueKey="_id"
       onRowClick={(row) => console.log(row)}
+      isLoading={isLoading}
+      hasError={!!error}
       columns={[
         {
           key: "imageUrl",
