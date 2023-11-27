@@ -54,8 +54,6 @@ export const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
   const canCreateFilters =
     filterValue.length === 0 || availableColumnOptions.length === 1;
 
-  console.log(availableColumnOptions);
-
   return (
     <div className="flex flex-1 items-center justify-start gap-x-2">
       <div className="flex items-center">

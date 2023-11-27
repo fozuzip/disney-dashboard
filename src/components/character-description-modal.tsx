@@ -28,7 +28,7 @@ export const CharacterDescriptionModal = ({
         <div className="flex flex-col gap-y-4 ml-4 w-2/3 max-h-full overflow-y-auto">
           <div className="flex flex-col gap-y-2">
             <div className="text-muted-foreground text-sm">
-              <span>Tv Shows:</span>
+              <span>TV Shows:</span>
               {tvShows.length === 0 && (
                 <span className="pl-2 font-bold">-</span>
               )}
