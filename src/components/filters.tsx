@@ -46,6 +46,7 @@ export const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
 
   const handleResetFilters = () => {
     setFilterValue("");
+    setFilterType("name");
     onFiltersChange([]);
   };
 

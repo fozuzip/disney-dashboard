@@ -1,22 +1,27 @@
 import { useState, useEffect } from "react";
 
 import { useGetCharactersQuery } from "@/services/disney";
-import { FilterType } from "@/services/types";
+import { Character, FilterType } from "@/services/types";
 
 import { CharacterTable } from "@/components/character-table";
 import { Pagination } from "@/components/pagination";
 import { Filters } from "@/components/filters";
+import { CharacterDescriptionModal } from "./components/character-description-modal";
 
 function App() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
   const [filters, setFilters] = useState<FilterType[]>([]);
 
-  const { data, error, isLoading } = useGetCharactersQuery({
+  const { data, error, isFetching } = useGetCharactersQuery({
     page,
     pageSize,
     filters,
   });
+
+  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
+    null
+  );
 
   // Reset page when page size changes
   useEffect(() => {
@@ -42,7 +47,8 @@ function App() {
           </div>
           <CharacterTable
             data={data?.data || []}
-            isLoading={isLoading}
+            onRowClick={setSelectedCharacter}
+            isLoading={isFetching}
             hasError={!!error}
           />
           <div className="flex items-cetner justify-end px-2">
@@ -56,6 +62,10 @@ function App() {
           </div>
         </div>
       </div>
+      <CharacterDescriptionModal
+        character={selectedCharacter}
+        onClose={() => setSelectedCharacter(null)}
+      />
     </div>
   );
 }

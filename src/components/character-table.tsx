@@ -4,12 +4,14 @@ import { ExternalLink } from "lucide-react";
 
 interface CharacterTableProps {
   data: Character[];
+  onRowClick: (row: Character) => void;
   isLoading: boolean;
   hasError: boolean;
 }
 
 export const CharacterTable = ({
   data,
+  onRowClick,
   isLoading,
   hasError,
 }: CharacterTableProps) => {
@@ -17,7 +19,7 @@ export const CharacterTable = ({
     <Table
       data={data}
       uniqueKey="_id"
-      onRowClick={(row) => console.log(row)}
+      onRowClick={onRowClick}
       isLoading={isLoading}
       hasError={hasError}
       columns={[

@@ -1,4 +1,4 @@
-import { cn } from "@/utils";
+import { useState, useMemo } from "react";
 import {
   ArrowDown,
   ArrowUp,
@@ -7,6 +7,8 @@ import {
   ServerCrash,
 } from "lucide-react";
 
+import { cn } from "@/utils";
+
 type Column = {
   key: string;
   label: string;
@@ -14,8 +16,6 @@ type Column = {
   width?: string;
   render?: (value: any) => React.ReactNode;
 };
-
-import { useState, useMemo } from "react";
 
 interface TableProps {
   columns: Column[];
