@@ -7,7 +7,7 @@ import { PlusCircle, X } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { FilterColumnType, FilterType } from "@/services/types";
 
-const columnOptions = [
+const columnOptions: { value: FilterColumnType; label: string }[] = [
   { value: "name", label: "Name" },
   { value: "tvShows", label: "TV Show" },
   { value: "videoGames", label: "Video Games" },
@@ -31,10 +31,17 @@ export const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
     ]);
   }, [debouncedFilterValue, filterType]);
 
+  const createdFilters = filters.slice(1);
+  // When a user has created a filter, we want to remove the option from the dropdown
+  const availableColumnOptions = columnOptions.filter(
+    ({ value }) =>
+      createdFilters.find((filter) => filter.type === value) === undefined
+  );
+
   const handleNewFilter = () => {
     onFiltersChange([{ value: "", type: "name" }, ...filters]);
     setFilterValue("");
-    setFilterType("name");
+    setFilterType(availableColumnOptions[1].value);
   };
 
   const handleResetFilters = () => {
@@ -42,8 +49,11 @@ export const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
     onFiltersChange([]);
   };
 
-  const createdFilters = filters.slice(1);
   const hasCreatedFilters = createdFilters.length > 0;
+  const canCreateFilters =
+    filterValue.length === 0 || availableColumnOptions.length === 1;
+
+  console.log(availableColumnOptions);
 
   return (
     <div className="flex flex-1 items-center justify-start gap-x-2">
@@ -56,7 +66,7 @@ export const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
         />
         <Dropdown
           value={filterType}
-          options={columnOptions}
+          options={availableColumnOptions}
           onChange={setFilterType}
           triggerClassName="rounded-l-none border-l-0"
           width={100}
@@ -66,7 +76,7 @@ export const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
       <div className="border border-dashed rounded-md flex gap-x-2 items-center px-2 h-8">
         <Button
           className="border-none text-xs p-0 hover:bg-transparent "
-          disabled={filterValue.length === 0}
+          disabled={canCreateFilters}
           onClick={handleNewFilter}
         >
           <div className="flex items-center gap-x-2">
