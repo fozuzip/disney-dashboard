@@ -1,11 +1,27 @@
+import { useState, useEffect } from "react";
+
 import { useGetCharactersQuery } from "@/services/disney";
+import { FilterType } from "@/services/types";
 
 import { CharacterTable } from "@/components/character-table";
 import { Pagination } from "@/components/pagination";
 import { Filters } from "@/components/filters";
 
 function App() {
-  const { error, isLoading } = useGetCharactersQuery("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(50);
+  const [filters, setFilters] = useState<FilterType[]>([]);
+
+  const { data, error, isLoading } = useGetCharactersQuery({
+    page,
+    pageSize,
+    filters,
+  });
+
+  // Reset page when page size changes
+  useEffect(() => {
+    setPage(1);
+  }, [pageSize]);
 
   return (
     <div className="w-screen h-screen bg-background text-foreground border-border">
@@ -22,11 +38,21 @@ function App() {
 
         <div className="flex flex-col gap-y-4 pt-4">
           <div className="flex items-center justify-between">
-            <Filters />
+            <Filters filters={filters} onFiltersChange={setFilters} />
           </div>
-          <CharacterTable />
+          <CharacterTable
+            data={data?.data || []}
+            isLoading={isLoading}
+            hasError={!!error}
+          />
           <div className="flex items-cetner justify-end px-2">
-            <Pagination />
+            <Pagination
+              page={page}
+              totalPages={data?.info.totalPages || 0}
+              onPageChange={setPage}
+              pageSize={pageSize}
+              onPageSizeChange={setPageSize}
+            />
           </div>
         </div>
       </div>

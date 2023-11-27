@@ -5,12 +5,7 @@ import { Dropdown } from "./dropdown";
 import { Button } from "./button";
 import { PlusCircle, X } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
-
-type FilterColumnType = "name" | "tvShows" | "videoGames";
-type FilterType = {
-  type: FilterColumnType;
-  value: string;
-};
+import { FilterColumnType, FilterType } from "@/services/types";
 
 const columnOptions = [
   { value: "name", label: "Name" },
@@ -18,26 +13,33 @@ const columnOptions = [
   { value: "videoGames", label: "Video Games" },
 ];
 
-export const Filters = () => {
-  const [filters, setFilters] = useState<FilterType[]>([]);
+interface FiltersProps {
+  filters: FilterType[];
+  onFiltersChange: (filters: FilterType[]) => void;
+}
 
+export const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
   const [filterValue, setFilterValue] = useState("");
   const [filterType, setFilterType] = useState<FilterColumnType>("name");
 
   const debouncedFilterValue = useDebounce(filterValue, 500);
 
   useEffect(() => {
-    setFilters([{ value: filterValue, type: filterType }, ...filters.slice(1)]);
+    onFiltersChange([
+      { value: filterValue, type: filterType },
+      ...filters.slice(1),
+    ]);
   }, [debouncedFilterValue, filterType]);
 
   const handleNewFilter = () => {
-    setFilters([{ value: "", type: "name" }, ...filters]);
+    onFiltersChange([{ value: "", type: "name" }, ...filters]);
     setFilterValue("");
     setFilterType("name");
   };
 
   const handleResetFilters = () => {
-    setFilters([filters[0]]);
+    setFilterValue("");
+    onFiltersChange([]);
   };
 
   const createdFilters = filters.slice(1);

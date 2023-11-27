@@ -1,18 +1,25 @@
-import { useGetCharactersQuery } from "@/services/disney";
+import { Character } from "@/services/types";
 import { Table } from "./table";
 import { ExternalLink } from "lucide-react";
 
-export const CharacterTable = () => {
-  const { data, isLoading, error } = useGetCharactersQuery("");
-  const characters = data?.data || [];
+interface CharacterTableProps {
+  data: Character[];
+  isLoading: boolean;
+  hasError: boolean;
+}
 
+export const CharacterTable = ({
+  data,
+  isLoading,
+  hasError,
+}: CharacterTableProps) => {
   return (
     <Table
-      data={characters}
+      data={data}
       uniqueKey="_id"
       onRowClick={(row) => console.log(row)}
       isLoading={isLoading}
-      hasError={!!error}
+      hasError={hasError}
       columns={[
         {
           key: "imageUrl",

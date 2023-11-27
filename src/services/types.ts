@@ -25,3 +25,9 @@ export interface Character {
   url: string;
   __v: number;
 }
+
+export type FilterColumnType = "name" | "tvShows" | "videoGames";
+export type FilterType = {
+  type: FilterColumnType;
+  value: string;
+};
