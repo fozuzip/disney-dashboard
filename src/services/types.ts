@@ -26,7 +26,7 @@ export interface Character {
   __v: number;
 }
 
-export type FilterColumnType = "name" | "tvShows" | "videoGames";
+export type FilterColumnType = "name" | "films" | "tvShows" | "videoGames";
 export type FilterType = {
   type: FilterColumnType;
   value: string;

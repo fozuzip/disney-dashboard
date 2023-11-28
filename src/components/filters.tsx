@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { Input } from "./input";
-import { Select } from "./Select";
+import { Select } from "./select";
 import { Button } from "./button";
 import { PlusCircle, X } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -9,6 +9,7 @@ import { FilterColumnType, FilterType } from "@/services/types";
 
 const columnOptions: { value: FilterColumnType; label: string }[] = [
   { value: "name", label: "Name" },
+  { value: "films", label: "Films" },
   { value: "tvShows", label: "TV Show" },
   { value: "videoGames", label: "Video Games" },
 ];

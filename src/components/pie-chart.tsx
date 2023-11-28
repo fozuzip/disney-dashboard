@@ -37,17 +37,14 @@ const options = {
     },
     formatter: function () {
       const formattedPercentage = this.percentage.toFixed(2);
-      const filmsList: string = this.point.films
+      const filmsList: string = this.point.list
         .map((film: string) => `${film}<br/>`)
         .join("");
       const truncatedFilmsList =
         filmsList.length > 300 ? filmsList.slice(0, 300) + "..." : filmsList;
 
       return (
-        "<b>" +
-        formattedPercentage +
-        " % </b> of total films <br/><br/>" +
-        truncatedFilmsList
+        "<b>" + formattedPercentage + " % </b><br/><br/>" + truncatedFilmsList
       );
     } as Highcharts.TooltipFormatterCallbackFunction,
   },
