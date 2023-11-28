@@ -38,13 +38,16 @@ export const ChartModal = ({ isOpen, onClose, data }: ChartModalProps) => {
       (total, character) => total + (character.films?.length || 0),
       0
     );
-    return series[0].data.map((point) => ({
-      ["Name"]: point.name,
-      ["# of films"]: point.y,
-      ["% of total"]: `${((point.y / totalFilms) * 100).toFixed(2)}%`,
-      ["Films"]: point.films.join(", "),
-    }));
-  }, [series, data]);
+    return data.map((character) => {
+      const films = character.films || [];
+      return {
+        ["Name"]: character.name,
+        ["# of films"]: films.length,
+        ["% of total"]: `${((films.length / totalFilms) * 100).toFixed(2)}%`,
+        ["Films"]: films.join(", "),
+      };
+    });
+  }, [data]);
 
   return (
     <Modal isOpen={isOpen} title="Films per character" onClose={onClose}>
