@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { useGetCharactersQuery } from "@/services/disney";
+import { useGetCharactersQuery } from "@/services/disneyApi";
 import { Character, FilterType } from "@/services/types";
 
 import { CharacterTable } from "@/components/character-table";
@@ -9,7 +9,7 @@ import { Filters } from "@/components/filters";
 import { CharacterDescriptionModal } from "./components/character-description-modal";
 import { ChartModal } from "./components/chart-modal";
 import { Button } from "./components/button";
-import { PieChart } from "lucide-react";
+import { PieChart, SlidersHorizontal } from "lucide-react";
 
 function App() {
   const [page, setPage] = useState(1);
@@ -32,6 +32,8 @@ function App() {
     setPage(1);
   }, [pageSize]);
 
+  const tableRows = data?.data || [];
+
   return (
     <div className="w-screen h-screen bg-background text-foreground border-border">
       <div className="relative mx-auto w-full max-w-[85rem] px-4 sm:px-6 lg:px-8 py-10">
@@ -51,18 +53,30 @@ function App() {
           <div className="flex items-center justify-between">
             <Filters filters={filters} onFiltersChange={setFilters} />
 
-            <Button
-              className="text-xs "
-              onClick={() => setIsChartModalOpen(true)}
-            >
-              <div className="flex items-center gap-x-2">
-                <PieChart className="w-3 h-3" />
-                <span>Chart</span>
-              </div>
-            </Button>
+            <div className="flex items-center gap-x-2">
+              <Button
+                className="text-xs"
+                onClick={() => setIsChartModalOpen(true)}
+                disabled={!tableRows.length}
+              >
+                <div className="flex items-center gap-x-2">
+                  <PieChart className="w-3 h-3" />
+                  <span>Chart</span>
+                </div>
+              </Button>
+              <Button
+                className="text-xs "
+                onClick={() => setIsChartModalOpen(true)}
+              >
+                <div className="flex items-center gap-x-2">
+                  <SlidersHorizontal className="w-4 h-4" />
+                  <span>View</span>
+                </div>
+              </Button>
+            </div>
           </div>
           <CharacterTable
-            data={data?.data || []}
+            data={tableRows}
             onRowClick={setSelectedCharacter}
             isLoading={isFetching}
             hasError={!!error}
@@ -85,6 +99,7 @@ function App() {
       <ChartModal
         isOpen={isChartModalOpen}
         onClose={() => setIsChartModalOpen(false)}
+        data={tableRows}
       />
     </div>
   );
