@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
+import { PieChart, SlidersHorizontal } from "lucide-react";
 
-import { useGetCharactersQuery } from "@/services/disneyApi";
-import { Character, FilterType } from "@/services/types";
-
+import {
+  useGetCharactersQuery,
+  Character,
+  FilterType,
+} from "@/services/disneyApi";
+import { Button } from "@/components/ui/button";
+import { SelectMultiple } from "@/components/ui/select-multiple";
 import {
   CharacterTable,
   CharacterTableColumnKey,
 } from "@/components/character-table";
 import { Pagination } from "@/components/pagination";
 import { Filters } from "@/components/filters";
-import { CharacterDescriptionModal } from "./components/character-description-modal";
-import { ChartModal } from "./components/chart-modal";
-import { Button } from "./components/button";
-import { PieChart, SlidersHorizontal } from "lucide-react";
-import { SelectMultiple } from "./components/select-multiple";
+import { CharacterModal } from "@/components/character-modal";
+import { ChartModal } from "@/components/chart-modal";
 
 function App() {
   const [page, setPage] = useState(1);
@@ -126,7 +128,7 @@ function App() {
           </div>
         </div>
       </div>
-      <CharacterDescriptionModal
+      <CharacterModal
         character={selectedCharacter}
         onClose={() => setSelectedCharacter(null)}
       />

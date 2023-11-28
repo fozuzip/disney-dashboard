@@ -1,17 +1,13 @@
-import { Modal } from "./modal";
-import { Character } from "@/services/types";
-
+import { Modal } from "./ui/modal";
+import { Character } from "@/services/disneyApi";
 import imagePlaceholder from "@/assets/image-placeholder.png";
 
-interface CharacterDescriptionModalProps {
+interface CharacterModalProps {
   character: Character | null;
   onClose: () => void;
 }
 
-export const CharacterDescriptionModal = ({
-  character,
-  onClose,
-}: CharacterDescriptionModalProps) => {
+export const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
   const films = character?.films || [];
   const tvShows = character?.tvShows || [];
   const videoGames = character?.videoGames || [];

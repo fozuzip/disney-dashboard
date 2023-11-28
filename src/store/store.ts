@@ -1,12 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
-import counterReducer from "@/store/slices/counterSlice";
 import { disneyApi } from "@/services/disneyApi";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     [disneyApi.reducerPath]: disneyApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

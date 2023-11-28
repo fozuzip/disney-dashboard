@@ -18,23 +18,23 @@ type Column = {
   render?: (value: any, row: any) => React.ReactNode;
 };
 
-interface TableProps {
+interface TableProps<RowType> {
   columns: Column[];
   uniqueKey: string;
-  onRowClick?: (row: any) => void;
-  data: any[];
+  onRowClick?: (row: RowType) => void;
+  data: RowType[];
   isLoading?: boolean;
   hasError?: boolean;
 }
 
-export const Table = ({
+export const Table = <RowType,>({
   columns,
   uniqueKey,
   onRowClick,
   data,
   isLoading,
   hasError,
-}: TableProps) => {
+}: TableProps<RowType>) => {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc" | null>(
     null

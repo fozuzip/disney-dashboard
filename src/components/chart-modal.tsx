@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-
-import { Character } from "@/services/types";
-import { Modal } from "./modal";
-import { PieChart } from "./pie-chart";
-import { DownloadButton } from "./DownloadButton";
-import { Button } from "./button";
 import { Film, Gamepad, Tv } from "lucide-react";
+
 import { cn } from "@/utils";
+import { Character } from "@/services/disneyApi";
+import { Modal } from "./ui/modal";
+import { PieChart } from "./ui/pie-chart";
+import { DownloadButton } from "./ui/download-button";
+import { Button } from "./ui/button";
 
 interface ChartModalProps {
   data: Character[];

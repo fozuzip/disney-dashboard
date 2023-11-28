@@ -1,7 +1,7 @@
-import { Character } from "@/services/types";
-import { Table } from "./table";
+import { Character } from "@/services/disneyApi";
+import { Table } from "./ui/table";
 import { ExternalLink } from "lucide-react";
-import { Avatar } from "./avatar";
+import { Avatar } from "./ui/avatar";
 
 export type CharacterTableColumnKey =
   | "imageUrl"

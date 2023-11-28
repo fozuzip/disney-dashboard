@@ -1,3 +1,5 @@
+import { Check, ChevronsUpDown } from "lucide-react";
+
 import { cn } from "@/utils";
 import { Button } from "./button";
 import {
@@ -6,14 +8,11 @@ import {
   DropdownContent,
   DropdownItem,
 } from "./dropdown";
-import { Check, ChevronsUpDown } from "lucide-react";
 
-type SelectValue = number | string;
-
-interface SelectProps {
-  value: SelectValue;
-  options: { value: SelectValue; label: string }[];
-  onChange: (value: SelectValue) => void;
+interface SelectProps<ValueType> {
+  value: ValueType;
+  options: { value: ValueType; label: string }[];
+  onChange: (value: ValueType) => void;
 
   triggerClassName?: string;
   contentClassName?: string;
@@ -21,7 +20,7 @@ interface SelectProps {
   width?: number;
 }
 
-export const Select = ({
+export const Select = <ValueType,>({
   value,
   options,
   onChange,
@@ -29,7 +28,7 @@ export const Select = ({
   contentClassName,
   itemClassName,
   width,
-}: SelectProps) => {
+}: SelectProps<ValueType>) => {
   const selectedOption = options.find((option) => option.value === value);
 
   return (
@@ -51,7 +50,7 @@ export const Select = ({
       <DropdownContent className={contentClassName}>
         {options.map(({ value, label }) => (
           <DropdownItem
-            key={value}
+            key={value as string}
             className={cn(
               selectedOption?.value === value && "bg-muted/50",
               itemClassName

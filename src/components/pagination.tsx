@@ -5,8 +5,8 @@ import {
   ChevronsRight,
 } from "lucide-react";
 
-import { Button } from "@/components/button";
-import { Select } from "./select";
+import { Button } from "./ui/button";
+import { Select } from "./ui/select";
 
 interface PaginationProps {
   page: number;

@@ -1,24 +1,23 @@
+import { Check } from "lucide-react";
+
 import {
   DropdownRoot,
   DropdownTrigger,
   DropdownContent,
   DropdownItem,
 } from "./dropdown";
-import { Check } from "lucide-react";
 
-type SelectValue = number | string;
-
-interface SelectProps {
-  values: SelectValue[];
-  options: { value: SelectValue; label: string }[];
-  onChange: (newValues: SelectValue[]) => void;
+interface SelectProps<ValueType> {
+  values: ValueType[];
+  options: { value: ValueType; label: string }[];
+  onChange: (newValues: ValueType[]) => void;
   children?: React.ReactNode;
   contentClassName?: string;
   itemClassName?: string;
   align?: "start" | "end" | "center";
 }
 
-export const SelectMultiple = ({
+export const SelectMultiple = <ValueType,>({
   values,
   options,
   onChange,
@@ -26,8 +25,8 @@ export const SelectMultiple = ({
   contentClassName,
   itemClassName,
   align,
-}: SelectProps) => {
-  const handleSelection = (value: SelectValue) => {
+}: SelectProps<ValueType>) => {
+  const handleSelection = (value: ValueType) => {
     onChange(
       values.includes(value)
         ? values.filter((v) => v !== value)
@@ -41,7 +40,7 @@ export const SelectMultiple = ({
       <DropdownContent className={contentClassName} align={align || "center"}>
         {options.map(({ value, label }) => (
           <DropdownItem
-            key={value}
+            key={value as string}
             className={itemClassName}
             onSelect={() => handleSelection(value)}
           >

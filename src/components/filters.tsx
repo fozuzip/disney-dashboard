@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-
-import { Input } from "./input";
-import { Select } from "./select";
-import { Button } from "./button";
 import { PlusCircle, X } from "lucide-react";
+
 import { useDebounce } from "@/hooks/useDebounce";
-import { FilterColumnType, FilterType } from "@/services/types";
+import { FilterColumnType, FilterType } from "@/services/disneyApi";
+import { Input } from "./ui/input";
+import { Select } from "./ui/select";
+import { Button } from "./ui/button";
 
 const columnOptions: { value: FilterColumnType; label: string }[] = [
   { value: "name", label: "Name" },
