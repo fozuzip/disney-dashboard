@@ -1,6 +1,7 @@
 import { Character } from "@/services/types";
 import { Table } from "./table";
 import { ExternalLink } from "lucide-react";
+import { Avatar } from "./avatar";
 
 export type CharacterTableColumnKey =
   | "imageUrl"
@@ -41,9 +42,7 @@ export const CharacterTable = ({
       label: "",
       width: "7%",
 
-      render: (value) => (
-        <img src={value} alt="character" className="w-10 h-10 rounded-full" />
-      ),
+      render: (value) => <Avatar src={value} />,
     },
     { key: "name", label: "Name", sortable: true },
     {

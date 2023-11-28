@@ -1,6 +1,8 @@
 import { Modal } from "./modal";
 import { Character } from "@/services/types";
 
+import imagePlaceholder from "@/assets/image-placeholder.png";
+
 interface CharacterDescriptionModalProps {
   character: Character | null;
   onClose: () => void;
@@ -20,7 +22,7 @@ export const CharacterDescriptionModal = ({
         <div className="w-1/3">
           <img
             className="object-cover w-full rounded-lg"
-            src={character?.imageUrl || ""}
+            src={character?.imageUrl || imagePlaceholder}
             alt="character image"
           />
         </div>
