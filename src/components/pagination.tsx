@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/button";
-import { Dropdown } from "@/components/dropdown";
+import { Select } from "./select";
 
 interface PaginationProps {
   page: number;
@@ -27,7 +27,7 @@ export const Pagination = ({
     <div className="flex items-center gap-x-6">
       <div className="flex items-center gap-x-4">
         <p className="text-sm font-medium">Rows per page</p>
-        <Dropdown
+        <Select
           value={pageSize}
           options={[
             { value: 10, label: "10" },

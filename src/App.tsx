@@ -3,13 +3,17 @@ import { useState, useEffect } from "react";
 import { useGetCharactersQuery } from "@/services/disneyApi";
 import { Character, FilterType } from "@/services/types";
 
-import { CharacterTable } from "@/components/character-table";
+import {
+  CharacterTable,
+  CharacterTableColumnKey,
+} from "@/components/character-table";
 import { Pagination } from "@/components/pagination";
 import { Filters } from "@/components/filters";
 import { CharacterDescriptionModal } from "./components/character-description-modal";
 import { ChartModal } from "./components/chart-modal";
 import { Button } from "./components/button";
 import { PieChart, SlidersHorizontal } from "lucide-react";
+import { SelectMultiple } from "./components/select-multiple";
 
 function App() {
   const [page, setPage] = useState(1);
@@ -21,6 +25,18 @@ function App() {
     pageSize,
     filters,
   });
+
+  const [visibleColumns, setVisibleColumns] = useState<
+    CharacterTableColumnKey[]
+  >([
+    "imageUrl",
+    "name",
+    "tvShows",
+    "videoGames",
+    "allies",
+    "enemies",
+    "sourceUrl",
+  ]);
 
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(
     null
@@ -64,19 +80,37 @@ function App() {
                   <span>Chart</span>
                 </div>
               </Button>
-              <Button
-                className="text-xs "
-                onClick={() => setIsChartModalOpen(true)}
+              <SelectMultiple
+                values={visibleColumns}
+                options={[
+                  { value: "imageUrl", label: "Avatar" },
+                  { value: "name", label: "Name" },
+                  { value: "films", label: "Films" },
+                  { value: "tvShows", label: "TV Shows" },
+                  { value: "videoGames", label: "Video Games" },
+                  { value: "allies", label: "Allies" },
+                  { value: "enemies", label: "Enemies" },
+                  { value: "sourceUrl", label: "Wiki Link" },
+                ]}
+                contentClassName="w-[140px] mt-2"
+                align="start"
+                onChange={setVisibleColumns}
               >
-                <div className="flex items-center gap-x-2">
-                  <SlidersHorizontal className="w-4 h-4" />
-                  <span>View</span>
-                </div>
-              </Button>
+                <Button
+                  className="text-xs "
+                  onClick={() => setIsChartModalOpen(true)}
+                >
+                  <div className="flex items-center gap-x-2">
+                    <SlidersHorizontal className="w-4 h-4" />
+                    <span>View</span>
+                  </div>
+                </Button>
+              </SelectMultiple>
             </div>
           </div>
           <CharacterTable
             data={tableRows}
+            visibleColumns={visibleColumns}
             onRowClick={setSelectedCharacter}
             isLoading={isFetching}
             hasError={!!error}

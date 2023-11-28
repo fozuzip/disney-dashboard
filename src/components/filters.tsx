@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { Input } from "./input";
-import { Dropdown } from "./dropdown";
+import { Select } from "./Select";
 import { Button } from "./button";
 import { PlusCircle, X } from "lucide-react";
 import { useDebounce } from "@/hooks/useDebounce";
@@ -63,7 +63,7 @@ export const Filters = ({ filters, onFiltersChange }: FiltersProps) => {
           placeholder="Filter characters by..."
           className="rounded-r-none"
         />
-        <Dropdown
+        <Select
           value={filterType}
           options={availableColumnOptions}
           onChange={setFilterType}
