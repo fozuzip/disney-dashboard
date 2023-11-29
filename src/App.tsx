@@ -96,15 +96,12 @@ function App() {
                 align="start"
                 onChange={setVisibleColumns}
               >
-                <Button
-                  className="text-xs "
-                  onClick={() => setIsChartModalOpen(true)}
-                >
+                <div className="text-xs">
                   <div className="flex items-center gap-x-2">
                     <SlidersHorizontal className="w-4 h-4" />
                     <span>View</span>
                   </div>
-                </Button>
+                </div>
               </SelectMultiple>
             </div>
           </div>

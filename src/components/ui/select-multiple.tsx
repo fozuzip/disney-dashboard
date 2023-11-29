@@ -6,6 +6,7 @@ import {
   DropdownContent,
   DropdownItem,
 } from "./dropdown";
+import { cn } from "@/utils";
 
 interface SelectProps<ValueType> {
   values: ValueType[];
@@ -13,6 +14,7 @@ interface SelectProps<ValueType> {
   onChange: (newValues: ValueType[]) => void;
   children?: React.ReactNode;
   contentClassName?: string;
+  triggerClassName?: string;
   itemClassName?: string;
   align?: "start" | "end" | "center";
 }
@@ -23,6 +25,7 @@ export const SelectMultiple = <ValueType,>({
   onChange,
   children,
   contentClassName,
+  triggerClassName,
   itemClassName,
   align,
 }: SelectProps<ValueType>) => {
@@ -36,7 +39,14 @@ export const SelectMultiple = <ValueType,>({
 
   return (
     <DropdownRoot>
-      <DropdownTrigger>{children}</DropdownTrigger>
+      <DropdownTrigger
+        className={cn(
+          "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-8 px-3",
+          triggerClassName
+        )}
+      >
+        {children}
+      </DropdownTrigger>
       <DropdownContent className={contentClassName} align={align || "center"}>
         {options.map(({ value, label }) => (
           <DropdownItem
