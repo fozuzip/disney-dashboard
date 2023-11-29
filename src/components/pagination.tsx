@@ -7,10 +7,11 @@ import {
 
 import { Button } from "./ui/button";
 import { Select } from "./ui/select";
+import { useAppSelector } from "@/hooks/redux-hooks";
+import { selectInfo } from "@/store/reducers/disney";
 
 interface PaginationProps {
   page: number;
-  totalPages: number;
   onPageChange: (page: number) => void;
   pageSize: number;
   onPageSizeChange: (pageSize: number) => void;
@@ -18,11 +19,12 @@ interface PaginationProps {
 
 export const Pagination = ({
   page,
-  totalPages,
   onPageChange,
   pageSize,
   onPageSizeChange,
 }: PaginationProps) => {
+  const { totalPages } = useAppSelector(selectInfo);
+
   return (
     <div className="flex items-center gap-x-6">
       <div className="flex items-center gap-x-4">

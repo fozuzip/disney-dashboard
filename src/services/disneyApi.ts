@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import axios from "axios";
 
 export interface DisneyApiResult {
   info: Info;
@@ -34,38 +34,32 @@ export type FilterType = {
   value: string;
 };
 
-// Define a service using a base URL and expected endpoints
-export const disneyApi = createApi({
-  reducerPath: "disneyApi",
-
-  baseQuery: fetchBaseQuery({ baseUrl: "https://api.disneyapi.dev/" }),
-  endpoints: (builder) => ({
-    getCharacters: builder.query<
-      DisneyApiResult,
-      { page: number; pageSize: number; filters: FilterType[] }
-    >({
-      query: ({ page, pageSize, filters }) => {
-        const params = filters.reduce(
-          (params, filter) => {
-            if (!filter.value) return params;
-
-            return {
-              ...params,
-              [filter.type]: filter.value,
-            };
-          },
-          { page, pageSize }
-        );
-        return {
-          url: "character",
-          method: "GET",
-          params,
-        };
-      },
-    }),
-  }),
+const disneyApi = axios.create({
+  baseURL: "https://api.disneyapi.dev/",
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
-export const { useGetCharactersQuery } = disneyApi;
+type ParamType = {
+  page: number;
+  pageSize: number;
+  filters: FilterType[];
+};
+const getCharacters = async ({ page, pageSize, filters }: ParamType) => {
+  const params = filters.reduce(
+    (params, filter) => {
+      if (!filter.value) return params;
+
+      return {
+        ...params,
+        [filter.type]: filter.value,
+      };
+    },
+    { page, pageSize }
+  );
+  const response = await disneyApi.get<DisneyApiResult>("character", {
+    params,
+  });
+
+  return response.data;
+};
+
+export default { getCharacters };

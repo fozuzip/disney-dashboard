@@ -2,6 +2,12 @@ import { Character } from "@/services/disneyApi";
 import { Table } from "./ui/table";
 import { ExternalLink } from "lucide-react";
 import { Avatar } from "./ui/avatar";
+import { useAppSelector } from "@/hooks/redux-hooks";
+import {
+  selectCharacters,
+  selectError,
+  selectLoading,
+} from "@/store/reducers/disney";
 
 export type CharacterTableColumnKey =
   | "imageUrl"
@@ -22,20 +28,18 @@ type CharacterTableColumn = {
 };
 
 interface CharacterTableProps {
-  data: Character[];
   visibleColumns?: CharacterTableColumnKey[];
   onRowClick: (row: Character) => void;
-  isLoading: boolean;
-  hasError: boolean;
 }
 
 export const CharacterTable = ({
-  data,
   onRowClick,
-  isLoading,
-  hasError,
   visibleColumns,
 }: CharacterTableProps) => {
+  const data = useAppSelector(selectCharacters);
+  const isLoading = useAppSelector(selectLoading);
+  const hasError = useAppSelector(selectError);
+
   let columns: CharacterTableColumn[] = [
     {
       key: "imageUrl",

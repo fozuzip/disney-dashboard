@@ -1,19 +1,22 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/query";
+import { createStore, applyMiddleware, AnyAction } from "redux";
+import thunkMiddlare, { ThunkAction } from "redux-thunk";
 
-import { disneyApi } from "@/services/disneyApi";
+import disney from "./reducers/disney";
 
-export const store = configureStore({
-  reducer: {
-    [disneyApi.reducerPath]: disneyApi.reducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(disneyApi.middleware),
-  devTools: process.env.NODE_ENV !== "production",
-});
+export const store = createStore(
+  disney,
+  undefined,
+  applyMiddleware(thunkMiddlare)
+);
 
-setupListeners(store.dispatch);
-
-// Inferred types
+// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  AnyAction
+>;

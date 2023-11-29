@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import { PieChart, SlidersHorizontal } from "lucide-react";
 
-import {
-  useGetCharactersQuery,
-  Character,
-  FilterType,
-} from "@/services/disneyApi";
 import { Button } from "@/components/ui/button";
 import { SelectMultiple } from "@/components/ui/select-multiple";
 import {
@@ -16,17 +11,21 @@ import { Pagination } from "@/components/pagination";
 import { Filters } from "@/components/filters";
 import { CharacterModal } from "@/components/character-modal";
 import { ChartModal } from "@/components/chart-modal";
+import { Character, FilterType } from "./services/disneyApi";
+import { useAppDispatch, useAppSelector } from "./hooks/redux-hooks";
+import { getCharacters, selectHasData } from "./store/reducers/disney";
 
 function App() {
+  const hasData = useAppSelector(selectHasData);
+  const dispatch = useAppDispatch();
+
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
   const [filters, setFilters] = useState<FilterType[]>([]);
 
-  const { data, error, isFetching } = useGetCharactersQuery({
-    page,
-    pageSize,
-    filters,
-  });
+  useEffect(() => {
+    dispatch(getCharacters({ page, pageSize, filters }));
+  }, [page, pageSize, filters]);
 
   const [visibleColumns, setVisibleColumns] = useState<
     CharacterTableColumnKey[]
@@ -49,8 +48,6 @@ function App() {
   useEffect(() => {
     setPage(1);
   }, [pageSize]);
-
-  const tableRows = data?.data || [];
 
   return (
     <div className="w-screen h-screen bg-background text-foreground border-border">
@@ -75,7 +72,7 @@ function App() {
               <Button
                 className="text-xs"
                 onClick={() => setIsChartModalOpen(true)}
-                disabled={!tableRows.length}
+                disabled={!hasData}
               >
                 <div className="flex items-center gap-x-2">
                   <PieChart className="w-3 h-3" />
@@ -111,16 +108,12 @@ function App() {
             </div>
           </div>
           <CharacterTable
-            data={tableRows}
             visibleColumns={visibleColumns}
             onRowClick={setSelectedCharacter}
-            isLoading={isFetching}
-            hasError={!!error}
           />
           <div className="flex items-cetner justify-end px-2">
             <Pagination
               page={page}
-              totalPages={data?.info.totalPages || 0}
               onPageChange={setPage}
               pageSize={pageSize}
               onPageSizeChange={setPageSize}
@@ -135,7 +128,6 @@ function App() {
       <ChartModal
         isOpen={isChartModalOpen}
         onClose={() => setIsChartModalOpen(false)}
-        data={tableRows}
       />
     </div>
   );

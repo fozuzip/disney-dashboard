@@ -2,19 +2,21 @@ import { useEffect, useMemo, useState } from "react";
 import { Film, Gamepad, Tv } from "lucide-react";
 
 import { cn } from "@/utils";
-import { Character } from "@/services/disneyApi";
 import { Modal } from "./ui/modal";
 import { PieChart } from "./ui/pie-chart";
 import { DownloadButton } from "./ui/download-button";
 import { Button } from "./ui/button";
+import { useAppSelector } from "@/hooks/redux-hooks";
+import { selectCharacters } from "@/store/reducers/disney";
 
 interface ChartModalProps {
-  data: Character[];
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const ChartModal = ({ isOpen, onClose, data }: ChartModalProps) => {
+export const ChartModal = ({ isOpen, onClose }: ChartModalProps) => {
+  const data = useAppSelector(selectCharacters);
+
   const [column, setColumn] = useState<"films" | "tvShows" | "videoGames">(
     "videoGames"
   );
