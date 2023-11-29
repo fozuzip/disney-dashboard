@@ -52,7 +52,7 @@ export const CharacterTable = ({
       sortable: true,
 
       render: (value) => (
-        <div className="bg-primary rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
+        <div className="bg-ring text-primary-foreground rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
           {value.length}
         </div>
       ),
@@ -63,7 +63,7 @@ export const CharacterTable = ({
       width: "10%",
       sortable: true,
       render: (value) => (
-        <div className="bg-secondary rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
+        <div className="bg-primary text-primary-foreground rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
           {value.length}
         </div>
       ),
@@ -74,7 +74,7 @@ export const CharacterTable = ({
       width: "12%",
       sortable: true,
       render: (value) => (
-        <div className="bg-destructive rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
+        <div className="bg-destructive text-destructive-foreground rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
           {value.length}
         </div>
       ),

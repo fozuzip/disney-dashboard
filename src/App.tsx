@@ -16,6 +16,7 @@ import { Pagination } from "@/components/pagination";
 import { Filters } from "@/components/filters";
 import { CharacterModal } from "@/components/character-modal";
 import { ChartModal } from "@/components/chart-modal";
+import { ThemeToggle } from "./components/ui/theme-toggle";
 
 function App() {
   const [page, setPage] = useState(1);
@@ -55,15 +56,12 @@ function App() {
   return (
     <div className="w-screen h-screen bg-background text-foreground border-border">
       <div className="relative mx-auto w-full max-w-[85rem] px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">
-              Disney Character Explorer
-            </h1>
-            <p className="text-muted-foreground">
-              Discover, Explore, and Analyze the World of Disney Characters in a
-              Dynamic Dashboard
-            </p>
+        <div className="flex items-center justify-center relative mb-6">
+          <div className="flex flex-col items-center gap-y-2">
+            <h1 className="text-7xl font-heading">Disney Characters</h1>
+          </div>
+          <div className="absolute inset-y-0 right-0 flex flex-col justify-center">
+            <ThemeToggle />
           </div>
         </div>
 
@@ -117,15 +115,14 @@ function App() {
             isLoading={isFetching}
             hasError={!!error}
           />
-          <div className="flex items-cetner justify-end px-2">
-            <Pagination
-              page={page}
-              totalPages={data?.info.totalPages || 0}
-              onPageChange={setPage}
-              pageSize={pageSize}
-              onPageSizeChange={setPageSize}
-            />
-          </div>
+
+          <Pagination
+            page={page}
+            totalPages={data?.info.totalPages || 0}
+            onPageChange={setPage}
+            pageSize={pageSize}
+            onPageSizeChange={setPageSize}
+          />
         </div>
       </div>
       <CharacterModal
