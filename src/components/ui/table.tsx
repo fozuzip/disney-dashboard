@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import {
   ArrowDown,
   ArrowUp,
@@ -35,6 +35,8 @@ export const Table = <RowType,>({
   isLoading,
   hasError,
 }: TableProps<RowType>) => {
+  const tableBodyRef = useRef<HTMLDivElement>(null);
+
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc" | null>(
     null
@@ -80,6 +82,13 @@ export const Table = <RowType,>({
     }
   };
 
+  // Scroll to top when data changes
+  useEffect(() => {
+    if (tableBodyRef.current) {
+      tableBodyRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [sortedData]);
+
   return (
     <div className="rounded-md border ">
       <div className="relative w-full overflow-auto ">
@@ -111,7 +120,10 @@ export const Table = <RowType,>({
           </thead>
         </table>
       </div>
-      <div className="relative w-full overflow-auto h-[600px] overflow-y-auto ">
+      <div
+        className="relative w-full h-[600px] overflow-y-auto "
+        ref={tableBodyRef}
+      >
         {isLoading && <LoadingView />}
 
         {hasError ? (
@@ -119,31 +131,33 @@ export const Table = <RowType,>({
         ) : data.length === 0 && !isLoading ? (
           <EmptyView />
         ) : (
-          <table className="w-full text-sm">
-            <tbody className="[&_tr:last-child]:border-0 ">
-              {sortedData?.map((row) => (
-                <tr
-                  key={row[uniqueKey]}
-                  className={cn(
-                    "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
-                    onRowClick && "cursor-pointer"
-                  )}
-                  onClick={onRowClick ? () => onRowClick(row) : undefined}
-                >
-                  {columns.map(({ key, render, width }) => (
-                    <td
-                      key={key}
-                      className="p-4 align-middle"
-                      style={{ width: width || "auto" }}
-                      colSpan={1}
-                    >
-                      {render ? render(row[key], row) : row[key]}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-auto">
+            <table className="w-full text-sm">
+              <tbody className="[&_tr:last-child]:border-0 ">
+                {sortedData?.map((row) => (
+                  <tr
+                    key={row[uniqueKey]}
+                    className={cn(
+                      "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+                      onRowClick && "cursor-pointer"
+                    )}
+                    onClick={onRowClick ? () => onRowClick(row) : undefined}
+                  >
+                    {columns.map(({ key, render, width }) => (
+                      <td
+                        key={key}
+                        className="p-4 align-middle"
+                        style={{ width: width || "auto" }}
+                        colSpan={1}
+                      >
+                        {render ? render(row[key], row) : row[key]}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
