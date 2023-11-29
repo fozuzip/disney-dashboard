@@ -6,9 +6,10 @@ import { Button } from "./button";
 
 interface DownloadButtonProps {
   data?: XLSX.WorkSheet[];
+  fileName: string;
 }
 
-export const DownloadButton = ({ data }: DownloadButtonProps) => {
+export const DownloadButton = ({ data, fileName }: DownloadButtonProps) => {
   const downloadDataAsXLSX = () => {
     if (!data) return;
 
@@ -20,7 +21,7 @@ export const DownloadButton = ({ data }: DownloadButtonProps) => {
       type: "array",
     });
     const blob = new Blob([xlsxBuffer], { type: "application/octet-stream" });
-    saveAs(blob, "pie-chart-data.xlsx");
+    saveAs(blob, `${fileName}.xlsx`);
   };
 
   return (

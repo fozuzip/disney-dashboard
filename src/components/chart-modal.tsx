@@ -68,18 +68,22 @@ export const ChartModal = ({ isOpen, onClose, data }: ChartModalProps) => {
     });
   }, [data, column]);
 
+  const fileName =
+    column === "films"
+      ? "characters-by-number-of-films"
+      : column === "tvShows"
+      ? "characters-by-number-of-tv-shows"
+      : "characters-by-number-of-video-games";
+
+  const title =
+    column === "films"
+      ? "Characters by number of films"
+      : column === "tvShows"
+      ? "Characters by number of TV shows"
+      : "Characters by number of video games";
+
   return (
-    <Modal
-      isOpen={isOpen}
-      title={
-        column === "films"
-          ? "Characters by number of films"
-          : column === "tvShows"
-          ? "Characters by number of TV shows"
-          : "Characters by number of video games"
-      }
-      onClose={onClose}
-    >
+    <Modal isOpen={isOpen} title={title} onClose={onClose}>
       <div className="relative ">
         <div className="flex items-center gap-x-4">
           <Button
@@ -112,7 +116,7 @@ export const ChartModal = ({ isOpen, onClose, data }: ChartModalProps) => {
         </div>
         <PieChart series={series} />
         <div className="absolute bottom-0 right-0">
-          <DownloadButton data={xlsxData} />
+          <DownloadButton data={xlsxData} fileName={fileName} />
         </div>
       </div>
     </Modal>

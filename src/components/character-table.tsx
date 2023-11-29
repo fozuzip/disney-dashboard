@@ -52,8 +52,10 @@ export const CharacterTable = ({
       sortable: true,
 
       render: (value) => (
-        <div className="bg-ring text-primary-foreground rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
-          {value.length}
+        <div className=" flex items-center justify-center">
+          <span className="bg-ring text-primary-foreground rounded-xl px-2 py-0.5">
+            {value.length}
+          </span>
         </div>
       ),
     },
@@ -63,8 +65,10 @@ export const CharacterTable = ({
       width: "10%",
       sortable: true,
       render: (value) => (
-        <div className="bg-primary text-primary-foreground rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
-          {value.length}
+        <div className=" flex items-center justify-center">
+          <span className="bg-primary text-primary-foreground rounded-xl px-2 py-0.5">
+            {value.length}
+          </span>
         </div>
       ),
     },
@@ -74,8 +78,10 @@ export const CharacterTable = ({
       width: "12%",
       sortable: true,
       render: (value) => (
-        <div className="bg-destructive text-destructive-foreground rounded-xl w-[30px] h-[24px] flex items-center justify-center ml-4">
-          {value.length}
+        <div className=" flex items-center justify-center">
+          <span className="bg-destructive text-destructive-foreground rounded-xl px-2 py-0.5">
+            {value.length}
+          </span>
         </div>
       ),
     },
