@@ -33,19 +33,17 @@ export const Select = <ValueType,>({
 
   return (
     <DropdownRoot>
-      <DropdownTrigger>
-        <Button
-          className={cn(
-            "flex items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 h-8",
-            triggerClassName
-          )}
-          style={{ width: width ? `${width}px` : "70px" }}
-        >
-          <div className="flex w-full items-center justify-between">
-            <span className="pointer-events-none">{selectedOption?.label}</span>
-            <ChevronsUpDown className="w-3 h-3 text-muted-foreground" />
-          </div>
-        </Button>
+      <DropdownTrigger
+        className={cn(
+          "flex items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 h-8",
+          triggerClassName
+        )}
+        style={{ width: width ? `${width}px` : "70px" }}
+      >
+        <div className="flex w-full items-center justify-between">
+          <span className="pointer-events-none">{selectedOption?.label}</span>
+          <ChevronsUpDown className="w-3 h-3 text-muted-foreground" />
+        </div>
       </DropdownTrigger>
       <DropdownContent className={contentClassName}>
         {options.map(({ value, label }) => (

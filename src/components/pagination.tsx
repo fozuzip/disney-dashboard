@@ -26,7 +26,7 @@ export const Pagination = ({
   const { totalPages } = useAppSelector(selectInfo);
 
   return (
-    <div className="flex items-center gap-x-6">
+    <div className="flex items-center justify-between gap-x-6">
       <div className="flex items-center gap-x-4">
         <p className="text-sm font-medium">Rows per page</p>
         <Select
@@ -42,39 +42,40 @@ export const Pagination = ({
           onChange={onPageSizeChange}
         />
       </div>
-
-      <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-        Page {page} of {totalPages}
-      </div>
-      <div className="flex items-center justify-center gap-x-2">
-        <Button
-          disabled={page === 1}
-          className="h-8 w-8 p-0"
-          onClick={() => onPageChange(1)}
-        >
-          <ChevronsLeft className="w-4 h-4 text-muted-foreground" />
-        </Button>
-        <Button
-          disabled={page === 1}
-          className="h-8 w-8 p-0"
-          onClick={() => onPageChange(page - 1)}
-        >
-          <ChevronLeft className="w-4 h-4 text-muted-foreground" />
-        </Button>
-        <Button
-          disabled={page === totalPages}
-          className="h-8 w-8 p-0"
-          onClick={() => onPageChange(page + 1)}
-        >
-          <ChevronRight className="w-4 h-4 text-muted-foreground" />
-        </Button>
-        <Button
-          disabled={page === totalPages}
-          className="h-8 w-8 p-0"
-          onClick={() => onPageChange(totalPages)}
-        >
-          <ChevronsRight className="w-4 h-4 text-muted-foreground" />
-        </Button>
+      <div className="flex items-center gap-x-4">
+        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+          Page {page} of {totalPages}
+        </div>
+        <div className="flex items-center justify-center gap-x-2">
+          <Button
+            disabled={page === 1}
+            className="h-8 w-8 p-0"
+            onClick={() => onPageChange(1)}
+          >
+            <ChevronsLeft className="w-4 h-4 text-muted-foreground" />
+          </Button>
+          <Button
+            disabled={page === 1}
+            className="h-8 w-8 p-0"
+            onClick={() => onPageChange(page - 1)}
+          >
+            <ChevronLeft className="w-4 h-4 text-muted-foreground" />
+          </Button>
+          <Button
+            disabled={page === totalPages}
+            className="h-8 w-8 p-0"
+            onClick={() => onPageChange(page + 1)}
+          >
+            <ChevronRight className="w-4 h-4 text-muted-foreground" />
+          </Button>
+          <Button
+            disabled={page === totalPages}
+            className="h-8 w-8 p-0"
+            onClick={() => onPageChange(totalPages)}
+          >
+            <ChevronsRight className="w-4 h-4 text-muted-foreground" />
+          </Button>
+        </div>
       </div>
     </div>
   );

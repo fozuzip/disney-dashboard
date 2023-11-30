@@ -14,6 +14,7 @@ import { ChartModal } from "@/components/chart-modal";
 import { Character, FilterType } from "./services/disneyApi";
 import { useAppDispatch, useAppSelector } from "./hooks/redux-hooks";
 import { getCharacters, selectHasData } from "./store/reducers/disney";
+import { ThemeToggle } from "./components/ui/theme-toggle";
 
 function App() {
   const hasData = useAppSelector(selectHasData);
@@ -44,23 +45,20 @@ function App() {
   );
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
 
-  // Reset page when page size changes
+  // Reset page when page size or filters changes
   useEffect(() => {
     setPage(1);
-  }, [pageSize]);
+  }, [pageSize, filters]);
 
   return (
     <div className="w-screen h-screen bg-background text-foreground border-border">
       <div className="relative mx-auto w-full max-w-[85rem] px-4 sm:px-6 lg:px-8 py-10">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">
-              Disney Character Explorer
-            </h1>
-            <p className="text-muted-foreground">
-              Discover, Explore, and Analyze the World of Disney Characters in a
-              Dynamic Dashboard
-            </p>
+        <div className="flex items-center justify-center relative mb-6">
+          <div className="flex flex-col items-center gap-y-2">
+            <h1 className="text-7xl font-heading">Disney Characters</h1>
+          </div>
+          <div className="absolute inset-y-0 right-0 flex flex-col justify-center">
+            <ThemeToggle />
           </div>
         </div>
 
@@ -95,15 +93,12 @@ function App() {
                 align="start"
                 onChange={setVisibleColumns}
               >
-                <Button
-                  className="text-xs "
-                  onClick={() => setIsChartModalOpen(true)}
-                >
+                <div className="text-xs">
                   <div className="flex items-center gap-x-2">
                     <SlidersHorizontal className="w-4 h-4" />
                     <span>View</span>
                   </div>
-                </Button>
+                </div>
               </SelectMultiple>
             </div>
           </div>
