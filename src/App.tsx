@@ -46,10 +46,10 @@ function App() {
   );
   const [isChartModalOpen, setIsChartModalOpen] = useState(false);
 
-  // Reset page when page size changes
+  // Reset page when page size or filters changes
   useEffect(() => {
     setPage(1);
-  }, [pageSize]);
+  }, [pageSize, filters]);
 
   const tableRows = data?.data || [];
 
@@ -115,7 +115,7 @@ function App() {
 
           <Pagination
             page={page}
-            totalPages={data?.info.totalPages || 0}
+            totalPages={data?.info.totalPages || 1}
             onPageChange={setPage}
             pageSize={pageSize}
             onPageSizeChange={setPageSize}

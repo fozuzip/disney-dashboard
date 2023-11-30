@@ -5,7 +5,7 @@ export default {
     extend: {
       fontFamily: {
         display: "Nunito, ui-sans-serif",
-        heading: "Disney, ui-sans-serif",
+        heading: "Disney, Nunito, ui-sans-serif",
       },
       colors: {
         border: "hsl(var(--border))",
