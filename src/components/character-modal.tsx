@@ -33,7 +33,9 @@ export const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
             </div>
             <div className="flex flex-col gap-x-2">
               {tvShows.map((tvShow) => (
-                <div className="truncate">{tvShow}</div>
+                <div key={tvShow} className="truncate">
+                  {tvShow}
+                </div>
               ))}
             </div>
           </div>
@@ -47,7 +49,9 @@ export const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
             </div>
             <div className="flex flex-col gap-x-2">
               {videoGames.map((videoGame) => (
-                <div className="truncate">{videoGame}</div>
+                <div key={videoGame} className="truncate">
+                  {videoGame}
+                </div>
               ))}
             </div>
           </div>
@@ -58,7 +62,9 @@ export const CharacterModal = ({ character, onClose }: CharacterModalProps) => {
             </div>
             <div className="flex flex-col gap-x-2">
               {films.map((film) => (
-                <div className="truncate">{film}</div>
+                <div key={film} className="truncate">
+                  {film}
+                </div>
               ))}
             </div>
           </div>
