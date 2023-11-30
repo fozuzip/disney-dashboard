@@ -90,8 +90,10 @@ export const Table = <RowType,>({
   }, [sortedData]);
 
   return (
-    <div className="rounded-md border ">
-      <div className="relative w-full overflow-auto ">
+    <div className="relative rounded-md border ">
+      {isLoading && <LoadingView />}
+
+      <div className="w-full overflow-auto ">
         <table className="w-full text-sm">
           <thead className="[&_tr]:border-b">
             <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
@@ -120,12 +122,7 @@ export const Table = <RowType,>({
           </thead>
         </table>
       </div>
-      <div
-        className="relative w-full h-[600px] overflow-y-auto "
-        ref={tableBodyRef}
-      >
-        {isLoading && <LoadingView />}
-
+      <div className="w-full h-[600px] overflow-y-auto " ref={tableBodyRef}>
         {hasError ? (
           <ErrorView />
         ) : data.length === 0 && !isLoading ? (

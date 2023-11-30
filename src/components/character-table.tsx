@@ -3,15 +3,7 @@ import { Table } from "./ui/table";
 import { ExternalLink } from "lucide-react";
 import { Avatar } from "./ui/avatar";
 
-export type CharacterTableColumnKey =
-  | "imageUrl"
-  | "name"
-  | "films"
-  | "tvShows"
-  | "videoGames"
-  | "allies"
-  | "enemies"
-  | "sourceUrl";
+export type CharacterTableColumnKey = keyof Character;
 
 type CharacterTableColumn = {
   key: CharacterTableColumnKey;
