@@ -1,12 +1,12 @@
 import { Check } from "lucide-react";
 
+import { cn } from "@/utils";
 import {
   DropdownRoot,
   DropdownTrigger,
   DropdownContent,
   DropdownItem,
 } from "./dropdown";
-import { cn } from "@/utils";
 
 interface SelectProps<ValueType> {
   values: ValueType[];

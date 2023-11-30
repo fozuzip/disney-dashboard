@@ -13,14 +13,6 @@ type CharacterTableColumn = {
   render?: (value: any) => React.ReactNode;
 };
 
-interface CharacterTableProps {
-  data: Character[];
-  visibleColumns?: CharacterTableColumnKey[];
-  onRowClick: (row: Character) => void;
-  isLoading: boolean;
-  hasError: boolean;
-}
-
 const characterTableColumns: CharacterTableColumn[] = [
   {
     key: "imageUrl",
@@ -111,6 +103,14 @@ const characterTableColumns: CharacterTableColumn[] = [
     ),
   },
 ];
+
+interface CharacterTableProps {
+  data: Character[];
+  visibleColumns?: CharacterTableColumnKey[];
+  onRowClick: (row: Character) => void;
+  isLoading: boolean;
+  hasError: boolean;
+}
 
 export const CharacterTable = ({
   data,
