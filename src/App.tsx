@@ -34,6 +34,7 @@ function App() {
   >([
     "imageUrl",
     "name",
+    "films",
     "tvShows",
     "videoGames",
     "allies",
